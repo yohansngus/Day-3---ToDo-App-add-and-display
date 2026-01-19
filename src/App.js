@@ -3,13 +3,18 @@ import "./App.css";
 
 function App() {
   const [inputtask, setInputtask] = useState("");
-  const [tassk, setTassk] = useState();
+  const [tassk, setTassk] = useState([]);
+
   const newInput = (e) => {
     setInputtask(e.target.value);
   };
   const newTask = () => {
-    setTassk(inputtask);
+    if (inputtask.trim() === "") return;
+    setTassk([...tassk, inputtask]);
     setInputtask("");
+  };
+  const delEle = (id) => {
+    setTassk((prev) => prev.filter((_, i) => i !== prev.length - 1 - id));
   };
   return (
     <div className="App">
@@ -22,7 +27,9 @@ function App() {
               onChange={newInput}
               placeholder="Write your tasks here..."
             />
-            <button onClick={newTask}>Add Task</button>
+            <button className="newtas" onClick={newTask}>
+              Add Task
+            </button>
           </div>
           <div className="displaycontainer">
             <div className="diplaytitle">
@@ -31,44 +38,25 @@ function App() {
               <div className="status">Status</div>
               <div className="action">Action</div>
             </div>
-            <div className="displaytodo">
-              <div className="hash">1</div>
-              <div className="task">10:30am Appointment with Mercy</div>
-              <div className="status">Done</div>
-              <div className="action">
-                <div className="close">
-                  {" "}
-                  <span className="material-symbols-outlined">close</span>
-                </div>
-              </div>
-            </div>
-            <div className="displaytodo">
-              <div className="hash">2</div>
-              <div className="task">9:00am Adha Fixing Dish</div>
-              <div className="status">Done </div>
-              <div className="action">
-                <div className="close">
-                  {" "}
-                  <span className="material-symbols-outlined">close</span>
-                </div>
-              </div>
-            </div>
-            <div className="displaytodo">
-              <div className="hash">3</div>
-              <div className="task">01:00pm going to Church</div>
-              <div className="status">Pendding</div>
-              <div className="action">
-                <div className="done">
-                  {" "}
-                  <span className="material-symbols-outlined">
-                    done_outline
-                  </span>
-                </div>
-                <div className="close">
-                  <span className="material-symbols-outlined">close</span>
-                </div>
-              </div>
-            </div>
+            <ul>
+              {tassk.toReversed().map((task, id) => (
+                <li className="displaytodo" key={id}>
+                  <div className="hash">{id + 1}.</div>
+                  <div className="task">{task}</div>
+                  <div className="status">pendding</div>
+                  <div className="action">
+                    <div className="done">
+                      {" "}
+                      <span className="material-symbols-outlined">done</span>
+                    </div>
+                    <div className="close" onClick={() => delEle(id)}>
+                      {" "}
+                      <span className="material-symbols-outlined">close</span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
