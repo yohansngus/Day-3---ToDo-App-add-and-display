@@ -2,19 +2,19 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [inputtask, setInputtask] = useState("");
-  const [tassk, setTassk] = useState([]);
+  const [inputTask, setInputTask] = useState("");
+  const [tasks, setTasks] = useState([]);
 
   const newInput = (e) => {
-    setInputtask(e.target.value);
+    setInputTask(e.target.value);
   };
   const newTask = () => {
-    if (inputtask.trim() === "") return;
-    setTassk([...tassk, inputtask]);
-    setInputtask("");
+    if (inputTask.trim() === "") return;
+    setTasks([...tasks, inputTask]);
+    setInputTask("");
   };
   const delEle = (id) => {
-    setTassk((prev) => prev.filter((_, i) => i !== prev.length - 1 - id));
+    setTasks((prev) => prev.filter((_, i) => i !== prev.length - 1 - id));
   };
   return (
     <div className="App">
@@ -23,7 +23,7 @@ function App() {
         <div className="content">
           <div className="addtodo">
             <input
-              value={inputtask}
+              value={inputTask}
               onChange={newInput}
               placeholder="Write your tasks here..."
             />
@@ -39,7 +39,7 @@ function App() {
               <div className="action">Action</div>
             </div>
             <ul>
-              {tassk.toReversed().map((task, id) => (
+              {tasks.toReversed().map((task, id) => (
                 <li className="displaytodo" key={id}>
                   <div className="hash">{id + 1}.</div>
                   <div className="task">{task}</div>
