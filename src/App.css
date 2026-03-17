@@ -39,9 +39,17 @@
 input::placeholder {
   font-style: italic;
   opacity: 0.5;
-  border: 2px solid #ccc;
+  border: 2px solid transparent;
   border-radius: 0.25rem;
   transition: border-color 0.2s ease-in-out;
+  background-image: linear-gradient(to right, #ccc, #ccc);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: 0% 50%;
+}
+
+input:focus::placeholder {
+  background-size: 100% 100%;
 }
 input:focus::placeholder {
   border-color: #2196f3;
